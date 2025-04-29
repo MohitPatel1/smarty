@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import type { GetStaticPropsResult } from 'next'
 import Router from 'next/router'
 import querystring from 'querystring'
-import { getAuth, signInWithEmailLink, isSignInWithEmailLink, User, updateProfile } from 'firebase/auth'
+import { getAuth, signInWithEmailLink, isSignInWithEmailLink, User, updateProfile } from '@firebase/auth'
 
 import { config } from 'config/config'
 import { firebaseApp } from 'lib/data/firebase'

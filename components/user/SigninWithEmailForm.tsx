@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getAuth, sendSignInLinkToEmail } from 'firebase/auth'
+import { getAuth, sendSignInLinkToEmail } from '@firebase/auth'
 
 import { firebaseApp } from 'lib/data/firebase'
 import showNotification from 'lib/showNotification'

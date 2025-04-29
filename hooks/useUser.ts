@@ -3,7 +3,7 @@
   const { user } = useUser()
 */
 import { useState, useEffect } from 'react'
-import { getAuth, User } from 'firebase/auth'
+import { getAuth, User } from '@firebase/auth'
 
 import { firebaseApp } from 'lib/data/firebase'
 

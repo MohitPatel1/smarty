@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, signInWithPopup } from '@firebase/auth'
 
 import { config } from 'config/config'
 import { firebaseApp } from 'lib/data/firebase'

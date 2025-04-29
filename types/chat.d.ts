@@ -5,7 +5,7 @@ declare module 'components/chat/ChatWindow' {
 }
 
 declare module 'firebase/firestore' {
-  import { DocumentData } from 'firebase/firestore'
+  import { DocumentData } from '@firebase/firestore'
   export interface QuerySnapshot<T = DocumentData> {
     docs: Array<{
       id: string

@@ -1,7 +1,7 @@
-import { initializeApp } from 'firebase/app'
-import { getFirestore, getDoc, getDocs, DocumentData, DocumentSnapshot, DocumentReference, CollectionReference, QuerySnapshot } from 'firebase/firestore'
-import 'firebase/auth'
-// import 'firebase/analytics'
+import { initializeApp } from '@firebase/app'
+import { getFirestore, getDoc, getDocs, DocumentData, DocumentSnapshot, DocumentReference, CollectionReference, QuerySnapshot } from '@firebase/firestore'
+import '@firebase/auth'
+// import '@firebase/analytics'
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -42,7 +42,7 @@ export const getCollectionItems = async (collectionRef: CollectionReference): Pr
   return snapshots
 }
 
-// To avoid “cannot be serialized as JSON” error
+// To avoid "cannot be serialized as JSON" error
 export const convertDates = (doc: FirestoreDoc): FirestoreDoc => ({
   ...doc,
   dateCreated: doc.dateCreated?.toDate().toString() ?? null,
