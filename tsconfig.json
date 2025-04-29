@@ -19,14 +19,17 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": [
-    "types/**/*.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",

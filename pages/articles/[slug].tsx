@@ -33,7 +33,7 @@ function ArticleDetailsPage ({ article }: ArticleDetailsPageProps): React.ReactE
       <p>Current query: <strong>{JSON.stringify(query)}</strong></p>
 
       <ul>
-        <li><Link legacyBehavior href='/'><a>Home</a></Link></li>
+        <li><Link href='/' className="home-link">Home</Link></li>
       </ul>
     </>
   )

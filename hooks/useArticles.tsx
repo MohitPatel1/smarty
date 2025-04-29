@@ -29,7 +29,7 @@ Then to use (“consume”) inside component or hook:
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
-import { collection, doc, getDoc, setDoc, updateDoc, deleteDoc, Timestamp, onSnapshot, serverTimestamp } from 'firebase/firestore'
+import { collection, doc, getDoc, setDoc, updateDoc, deleteDoc, Timestamp, onSnapshot, serverTimestamp, QuerySnapshot } from '@firebase/firestore'
 import { firebaseDB, doesDocumentExist, docWithId, getDocumentItem, getCollectionItems, FirestoreDoc } from 'lib/data/firebase'
 import toSlug from 'lib/toSlug'
 import makeRestRequest from 'lib/makeRestRequest'
@@ -37,11 +37,12 @@ import makeRestRequest from 'lib/makeRestRequest'
 export interface Article extends FirestoreDoc {
   id?: string
   name: string
+  content?: string
   dateCreated: Timestamp
   dateUpdated?: Timestamp
 }
 
-// Tip: if you don’t need SSR, you can move these inside the ArticlesContextProvider and create “chains” of child Firebase collections that depend on their parents
+// Tip: if you don't need SSR, you can move these inside the ArticlesContextProvider and create "chains" of child Firebase collections that depend on their parents
 // Collection/Item as Firebase references
 export const articlesCollectionRef = () => collection(firebaseDB, 'articles')
 export const articleRef = (articleId: string) => doc(firebaseDB, 'articles', articleId)
@@ -88,7 +89,7 @@ export const ArticlesContextProvider = (props: ArticlesInputProps) => {
   const [articles, setArticles] = useState<Article[]>(props.articles ?? [])
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(firebaseDB, 'articles'), (snapshot) => {
+    const unsubscribe = onSnapshot(collection(firebaseDB, 'articles'), (snapshot: QuerySnapshot) => {
       const filteredArticles = snapshot.docs
         .map(docWithId)
         // .filter((article) => (article.ownerUserId === user?.uid) || isAdmin)

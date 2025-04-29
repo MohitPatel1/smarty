@@ -9,6 +9,7 @@ import { showErrorNotification } from 'lib/showNotification'
 import { PageProps } from 'components/page/PageHead'
 import { Article, articlesCollection, ArticlesContextProvider } from 'hooks/useArticles'
 import useUser from 'hooks/useUser'
+import ChatWindow from 'components/chat/ChatWindow'
 
 import ArticleList from 'components/articles/ArticleList'
 import CreateArticleForm from 'components/articles/CreateArticleForm'
@@ -21,6 +22,12 @@ function ArticleListPage ({ articles }: ArticleListPageProps) {
   // Note: 'query' contains both /:params and ?query=value from url
   const { query } = useRouter()
   const { user, signOut } = useUser()
+
+  const handleSignOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    void signOut()
+  }
+
   return (
     <>
       <h1>{config.appName}</h1>
@@ -40,12 +47,15 @@ function ArticleListPage ({ articles }: ArticleListPageProps) {
         ? (
           <>
             <p>You are signed in as <strong>{user.email ?? user.displayName}</strong></p>
-            <p><a onClick={signOut}>Sign out</a></p>
+            <p><a href="#" onClick={handleSignOut}>Sign out</a></p>
+            
+            <h2>Chat</h2>
+            <ChatWindow />
           </>
           )
         : (
-          <Link legacyBehavior href='/signin'>
-            <a>Click here to sign in</a>
+          <Link href='/signin' className="signin-link">
+            Click here to sign in
           </Link>
           )}
 

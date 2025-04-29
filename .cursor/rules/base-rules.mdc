@@ -1,3 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
 For your personal chat project using Next.js, here's a **recommended stack** that balances simplicity, scalability, and ease of implementation:
 
 ---
@@ -94,5 +99,6 @@ Stick with Next.js! It handles:
 | Authentication | NextAuth.js        | Simple, Next.js-native sign-in    |
 | Database       | Supabase           | Real-time + free tier             |
 | Hosting        | Vercel             | Optimized for Next.js             |
+
 
 This stack ensures minimal setup, low cost, and scalability if your project grows. Let me know if you need help with specific code snippets! 🚀

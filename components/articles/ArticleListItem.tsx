@@ -17,8 +17,8 @@ const ArticleListItem = ({ article, inProgress = false }: ArticleListItemProps) 
       className={'article' + (inProgress ? ' in-progress' : '')}
       title={`id: ${article.id}`}
     >
-      <Link legacyBehavior {...articlePath(article)}>
-        <a>{article.name}</a>
+      <Link {...articlePath(article)} className="article-link">
+        {article.name}
       </Link>
 
       <span className='actions'>

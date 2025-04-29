@@ -36,24 +36,22 @@ const Header: React.FC<HeaderProps> = ({ title = config.appName, children }) => 
 export default Header
 
 const AppIcon: React.FC = () => (
-  <Link href='/' passHref>
-    <a className='app-icon' title={config.appName}>
-      <img src='/favicon.png' alt={config.appName} />
-      <style jsx>{`
-        a:hover {
-          filter: none;
-        }
+  <Link href='/' className='app-icon' title={config.appName}>
+    <img src='/favicon.png' alt={config.appName} />
+    <style jsx>{`
+      a:hover {
+        filter: none;
+      }
 
-        img {
-          position: absolute;
-          left: 10px;
-          top: 10px;
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-        }
-      `}
-      </style>
-    </a>
+      img {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+    `}
+    </style>
   </Link>
 )
