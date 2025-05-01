@@ -1,11 +1,7 @@
 ---
 description: 
 globs: 
-<<<<<<<< Updated upstream:.cursor/rules/base-rules.mdc
-alwaysApply: false
-========
 alwaysApply: true
->>>>>>>> Stashed changes:.cursor/rules/base-prompt.mdc
 ---
 For your personal chat project using Next.js, here's a **recommended stack** that balances simplicity, scalability, and ease of implementation:
 
@@ -23,12 +19,13 @@ Use **NextAuth.js** (built for Next.js):
 - **Firebase Firestore** (NoSQL):
   - Real-time updates out of the box.
   - Simple to pair with Firebase Auth.
+  - Use free cdn for media storage of chat.
 
 ---
 
 ### **3. Real-Time Chat**
-- **Supabase Realtime** or **Firebase Realtime Database**:
- 
+- **Firebase Realtime Database**:
+ - Without refreshing the page, data is synced across devices
 ---
 
 ### **4. Backend**
@@ -37,8 +34,6 @@ Use **Next.js API Routes** for:
 - Fetching chat history.
 - Handling authentication logic (e.g., verifying users).
 
-No need for a separate backend server.
-
 ---
 
 ### **5. Hosting**
@@ -46,8 +41,15 @@ No need for a separate backend server.
 
 ---
 
+### **6. Progressive Web APP (offline) **
+Use ** Vite PWA & service worker **
+- Whole application must run offline.
+- when offline, in top frame, show that you are offline via caching
+- The app is installable with detailed manifest file and necessary screenshots and shortcuts
+- Implement all latest PWA api availabe for service worker
+
 ### **Database Structure Example**
-For Supabase/Firestore:
+For /Firestore:
 ```plaintext
 chats (
   id: string
@@ -60,6 +62,7 @@ chats (
 ```
 - Ensure each chat is unique to a pair of users (you + one other user).
 - Use database security rules to restrict access to the two participants.
+- store media by storing the cdn link, use any free cdn.
 
 ---
 
@@ -77,25 +80,10 @@ chats (
    - Use real-time subscriptions to sync messages between participants.
 
 3. **UI**:
-   - Build a simple chat interface with a message list and input field.
+   - Build a beautiful fun chat interface with message list and input field.
+   - Enable media sharing in chat window.
    - Show only the chat between the logged-in user and your admin account.
-
 ---
 
-### **Why Not React?**
-Stick with Next.js! It handles:
-- Server-side rendering (SSR) for SEO (if needed).
-- API routes (no separate backend).
-- Easy deployment to Vercel.
-
----
-
-### **Example Tools Summary**
-| Category       | Tool               | Use Case                          |
-|----------------|--------------------|-----------------------------------|
-| Authentication | NextAuth.js        | Simple, Next.js-native sign-in    |
-| Database       | Supabase           | Real-time + free tier             |
-| Hosting        | Vercel             | Optimized for Next.js             |
-
-
-This stack ensures minimal setup, low cost, and scalability if your project grows. Let me know if you need help with specific code snippets! 🚀
+4. **CI/CD**:
+    - Implement *simple-git-hooks* and runs build command before pushing, if the command fails, it doesn't let you push.
