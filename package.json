@@ -26,6 +26,7 @@
     ]
   },
   "dependencies": {
+    "@mui/material": "^6.4.5",
     "aether-css-framework": "^1.7.1",
     "firebase": "^10.13.1",
     "next": "^13.1.2",
@@ -34,7 +35,8 @@
     "react-dom": "^18.2.0",
     "react-svg-inline": "^2.1.1",
     "react-toastify": "^9.1.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/next": "^9.0.0",

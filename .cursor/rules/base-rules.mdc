@@ -1,7 +1,11 @@
 ---
 description: 
 globs: 
+<<<<<<<< Updated upstream:.cursor/rules/base-rules.mdc
 alwaysApply: false
+========
+alwaysApply: true
+>>>>>>>> Stashed changes:.cursor/rules/base-prompt.mdc
 ---
 For your personal chat project using Next.js, here's a **recommended stack** that balances simplicity, scalability, and ease of implementation:
 
@@ -9,33 +13,22 @@ For your personal chat project using Next.js, here's a **recommended stack** tha
 
 ### **1. Authentication**
 Use **NextAuth.js** (built for Next.js):
-- Pros: 
-  - Native integration with Next.js.
   - Supports Google/GitHub/Magic Link (email) authentication out of the box.
   - No need for a separate backend.
-- Alternative: **Clerk** (simpler UI/UX) or **Firebase Auth** (if you prefer Google’s ecosystem).
+- **Firebase Auth** (if you prefer Google’s ecosystem).
 
 ---
 
-### **2. Database**
-For low traffic and simplicity, use **Supabase** or **Firebase Firestore**:
-- **Supabase** (PostgreSQL-based):
-  - Free tier, real-time capabilities, and row-level security.
-  - Perfect for 1:1 chats (structure tables with `sender_id`, `receiver_id`, `message`, `timestamp`).
+### **2. Database : Firebase Firestore**:
 - **Firebase Firestore** (NoSQL):
   - Real-time updates out of the box.
   - Simple to pair with Firebase Auth.
-
-*Why not SQLite?* While lightweight, it’s harder to scale. Supabase/Firebase handle hosting, backups, and scaling for you.
 
 ---
 
 ### **3. Real-Time Chat**
 - **Supabase Realtime** or **Firebase Realtime Database**:
-  - Both let you subscribe to chat updates instantly.
-  - Example: When a user sends a message, the database triggers a real-time event to update both participants’ UIs.
-- Alternative: **Ably** (serverless WebSocket API) for more control.
-
+ 
 ---
 
 ### **4. Backend**
@@ -77,6 +70,10 @@ chats (
 
 2. **Chat Logic**:
    - When a user logs in, check if a chat exists between them and your admin account. If not, create one.
+   - All users can chat with admin only, not to each other.
+   - There will be a chat box and all messages will be sent to admin
+   - "mohit.patel1966@gmail.com" is the admin email account
+   - when logged in with admin account, all chats will be shown and admin can message which is visible to related account only.
    - Use real-time subscriptions to sync messages between participants.
 
 3. **UI**:

@@ -9,12 +9,14 @@ import { firebaseApp } from 'lib/data/firebase'
 
 interface UserHook {
   user: User | null
+  isAdmin: boolean
   signOut: () => Promise<void>
 }
 
 export default function useUser (): UserHook {
   const [user, setUser] = useState<User | null>(null)
   const auth = getAuth(firebaseApp)
+  const adminEmail = 'mohit.patel1966@gmail.com'
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
@@ -31,5 +33,5 @@ export default function useUser (): UserHook {
     }
   }
 
-  return { user, signOut }
+  return { user, isAdmin: user?.email === adminEmail, signOut }
 }

@@ -59,6 +59,11 @@ function ArticleListPage ({ articles }: ArticleListPageProps) {
           </Link>
           )}
 
+      <h2>Chat with Admin</h2>
+      <Link legacyBehavior href='/chatWithMohit'>
+        <a>Go to Chat</a>
+      </Link>
+
       <h2>Add to Home Screen</h2>
       <p>You can add this to your Home Screen on iOS/Android, it should then start full screen.</p>
 
