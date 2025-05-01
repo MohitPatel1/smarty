@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp } from '@firebase/firestore'
 import { firebaseDB } from 'lib/data/firebase'
 import useUser from 'hooks/useUser'
 
