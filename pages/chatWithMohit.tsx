@@ -55,7 +55,21 @@ const ChatWithMohit = () => {
       // Admin: show all chats
       const q = query(collection(firebaseDB, 'chats'))
       const unsub = onSnapshot(q, (snapshot) => {
-        setChats(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Chat)))
+        // Create a Map to store unique chats by user email
+        const uniqueChatsMap = new Map<string, Chat>()
+        
+        snapshot.docs.forEach(doc => {
+          const chat = { id: doc.id, ...doc.data() } as Chat
+          const otherUserEmail = chat.user1 === ADMIN_EMAIL ? chat.user2 : chat.user1
+          
+          // Only store the most recent chat for each user
+          if (!uniqueChatsMap.has(otherUserEmail)) {
+            uniqueChatsMap.set(otherUserEmail, chat)
+          }
+        })
+        
+        // Convert Map values back to array
+        setChats(Array.from(uniqueChatsMap.values()))
       })
       return () => unsub()
     } else {
