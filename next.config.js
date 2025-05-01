@@ -1,8 +1,9 @@
 const withOffline = require('next-offline')
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['www.mohitpatel.life', 'mohitpatel.life']
+    domains: ['www.mohitpatel.life', 'mohitpatel.life', 'res.cloudinary.com']
   },
 
   transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
@@ -31,6 +32,19 @@ const nextConfig = {
         }
       ]
     }
+  },
+
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
+      config.resolve.fallback = {
+        fs: false,
+        net: false,
+        tls: false,
+        crypto: false,
+      }
+    }
+    return config
   }
 
   // // For <Icon /> support:
