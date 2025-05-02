@@ -41,12 +41,17 @@ Use **Next.js API Routes** for:
 
 ---
 
-### **6. Progressive Web APP (offline) **
-Use ** Vite PWA & service worker **
+### **6. Progressive Web APP (offline)**
+Use **Next PWA & service worker**
 - Whole application must run offline.
 - when offline, in top frame, show that you are offline via caching
 - The app is installable with detailed manifest file and necessary screenshots and shortcuts
 - Implement all latest PWA api availabe for service worker
+
+### **7. Testing**
+Use **next/jest** 
+- Check all the functionality and components are working as aspected 
+- Do end to end testing
 
 ### **Database Structure Example**
 For /Firestore:
@@ -83,6 +88,7 @@ chats (
    - Build a beautiful fun chat interface with message list and input field.
    - Enable media sharing in chat window.
    - Show only the chat between the logged-in user and your admin account.
+   - Use arial fonts
 ---
 
 4. **CI/CD**:
