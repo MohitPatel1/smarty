@@ -5,6 +5,8 @@ alwaysApply: true
 ---
 For your personal chat project using Next.js, here's a **recommended stack** that balances simplicity, scalability, and ease of implementation:
 
+- Check that there is are no errors after generating the code.
+
 ---
 
 ### **1. Authentication**
@@ -51,6 +53,7 @@ Use **Next PWA & service worker**
 Use **next/jest** 
 - Check all the functionality and components are working as aspected 
 - Do end to end testing
+
 
 ### **Database Structure Example**
 For /Firestore:
