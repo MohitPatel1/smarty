@@ -6,6 +6,15 @@ const nextConfig = {
     domains: ['www.mohitpatel.life', 'mohitpatel.life', 'res.cloudinary.com']
   },
 
+  // Enable experimental features for Turbopack
+  experimental: {
+    turbo: {
+      rules: {
+        // Add any custom Turbopack rules here
+      }
+    }
+  },
+
   transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
 
   // Trying to set NODE_ENV=production when running yarn dev causes a build-time error so we turn on the SW in dev mode so that we can actually test it
@@ -32,29 +41,7 @@ const nextConfig = {
         }
       ]
     }
-  },
-
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      // Don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
-      config.resolve.fallback = {
-        fs: false,
-        net: false,
-        tls: false,
-        crypto: false,
-      }
-    }
-    return config
   }
-
-  // // For <Icon /> support:
-  // webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-  //   config.module.rules.push({
-  //     test: /\.svg$/,
-  //     loader: 'raw-loader'
-  //   })
-  //   return config
-  // }
 }
 
 module.exports = withOffline(nextConfig)

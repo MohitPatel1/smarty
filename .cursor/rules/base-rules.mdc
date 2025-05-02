@@ -38,7 +38,6 @@ Use **Next.js API Routes** for:
 
 ### **5. Hosting**
 - **Vercel** (optimized for Next.js, free tier).
-
 ---
 
 ### **6. Progressive Web APP (offline)**
@@ -93,3 +92,6 @@ chats (
 
 4. **CI/CD**:
     - Implement *simple-git-hooks* and runs build command before pushing, if the command fails, it doesn't let you push.
+
+5. **Notification**
+link: https://medium.com/@ameerezae/implementing-web-push-notifications-in-next-js-a-complete-guide-e21acd89492d
