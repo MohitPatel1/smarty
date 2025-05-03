@@ -5,11 +5,13 @@
   "author": "Mohit <mohit@teziapp.com>",
   "license": "ISC",
   "scripts": {
-    "dev": "next dev -p 3004",
+    "dev": "next dev --turbo -p 3004",
     "vercel": "echo 'Running as Vercel serverless'; vercel dev --listen 3004",
     "build": "next build",
     "start": "next start -p 3004",
-    "test": "echo 'Running Standard.js and Jasmine unit tests...\n' && yarn lint && yarn unit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "unit": "jasmine",
     "lint": "ts-standard",
     "fix": "ts-standard --fix",
@@ -29,8 +31,9 @@
     "@mui/material": "^6.4.5",
     "aether-css-framework": "^1.7.1",
     "firebase": "^10.13.1",
-    "next": "^13.1.2",
+    "next": "^14.1.0",
     "next-offline": "^5.0.5",
+    "next-pwa": "^5.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-svg-inline": "^2.1.1",
@@ -39,6 +42,12 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@firebase/firestore-types": "^3.0.3",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^29.5.14",
     "@types/next": "^9.0.0",
     "@types/node": "^22.1.0",
     "@types/react": "^18.3.3",
@@ -46,9 +55,12 @@
     "@types/react-svg-inline": "^2.1.6",
     "cloudinary": "^2.6.0",
     "dotenv": "^16.5.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "simple-git-hooks": "^2.13.0",
     "ts-standard": "^12.0.2",
-    "webpack": "^5.25.0"
+    "whatwg-fetch": "^3.6.20",
+    "workbox-webpack-plugin": "^7.3.0"
   },
   "simple-git-hooks": {
     "pre-push": "yarn build"

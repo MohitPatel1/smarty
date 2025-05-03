@@ -5,6 +5,8 @@ alwaysApply: true
 ---
 For your personal chat project using Next.js, here's a **recommended stack** that balances simplicity, scalability, and ease of implementation:
 
+- Check that there is are no errors after generating the code.
+
 ---
 
 ### **1. Authentication**
@@ -38,15 +40,20 @@ Use **Next.js API Routes** for:
 
 ### **5. Hosting**
 - **Vercel** (optimized for Next.js, free tier).
-
 ---
 
-### **6. Progressive Web APP (offline) **
-Use ** Vite PWA & service worker **
+### **6. Progressive Web APP (offline)**
+Use **Next PWA & service worker**
 - Whole application must run offline.
 - when offline, in top frame, show that you are offline via caching
 - The app is installable with detailed manifest file and necessary screenshots and shortcuts
 - Implement all latest PWA api availabe for service worker
+
+### **7. Testing**
+Use **next/jest** 
+- Check all the functionality and components are working as aspected 
+- Do end to end testing
+
 
 ### **Database Structure Example**
 For /Firestore:
@@ -83,7 +90,11 @@ chats (
    - Build a beautiful fun chat interface with message list and input field.
    - Enable media sharing in chat window.
    - Show only the chat between the logged-in user and your admin account.
+   - Use arial fonts
 ---
 
 4. **CI/CD**:
     - Implement *simple-git-hooks* and runs build command before pushing, if the command fails, it doesn't let you push.
+
+5. **Notification**
+link: https://medium.com/@ameerezae/implementing-web-push-notifications-in-next-js-a-complete-guide-e21acd89492d
