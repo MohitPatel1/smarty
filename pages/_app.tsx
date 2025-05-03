@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import Router from 'next/router'
 import Link from 'next/link'
+import { ErrorBoundary } from '../components/common/ErrorBoundary'
+import OfflineIndicator from '../components/common/OfflineIndicator'
 
 import PageHead from 'components/page/PageHead'
 // import Header from 'components/page/Header'
@@ -17,8 +19,39 @@ Router.events.on('routeChangeComplete', path => googlePageview(path))
 
 export default function App ({ Component, pageProps, router }: AppProps): React.ReactElement {
   // props (Server + Client): Component, err, pageProps, router     
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then((registration) => {
+          console.log('Service Worker registration successful', registration);
+          
+          // Check for updates on page load
+          registration.update();
+          
+          // Listen for new service worker installation
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // New service worker is installed and ready to take over
+                  if (confirm('New version available! Click OK to refresh.')) {
+                    window.location.reload();
+                  }
+                }
+              });
+            }
+          });
+        })
+        .catch((err) => {
+          console.warn('Service Worker registration failed', err);
+        });
+    }
+  }, []);
+
   return (
-    <>
+    <ErrorBoundary>
       <PageHead
         {...pageProps}
         path={router.asPath}
@@ -28,6 +61,7 @@ export default function App ({ Component, pageProps, router }: AppProps): React.
         title={config.appName}
       />
  */}
+      <OfflineIndicator />
       <main>
         <Component
           {...pageProps}
@@ -41,6 +75,6 @@ export default function App ({ Component, pageProps, router }: AppProps): React.
       <button className='circle-menu-button bottom right'><img src='/icons/help.svg' alt='Help' /></button>
 
       <Notifications />
-    </>
+    </ErrorBoundary>
   )
 }
