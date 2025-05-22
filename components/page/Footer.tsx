@@ -1,35 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
-import { getSiteConfig } from 'config/site'
+import { useSite } from 'contexts/SiteContext'
 
 const Footer = (): React.ReactElement => {
-  const [siteConfig, setSiteConfig] = React.useState(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        return getSiteConfig(window.location.hostname)
-      }
-      return getSiteConfig('')
-    } catch (error) {
-      console.error('Error getting site config:', error)
-      return {
-        name: 'Site',
-        logo: '/default-logo.png',
-        email: 'contact@site.com',
-        domain: 'site.com'
-      }
-    }
-  })
-
-  React.useEffect(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        const newConfig = getSiteConfig(window.location.hostname)
-        setSiteConfig(newConfig)
-      }
-    } catch (error) {
-      console.error('Error updating site config:', error)
-    }
-  }, [])
+  const { siteConfig } = useSite()
   
   return (
     <footer>
