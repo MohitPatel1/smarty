@@ -7,10 +7,13 @@ import { User } from '@firebase/auth'
 
 import { firebaseAuth } from 'lib/data/firebase'
 
+const ADMIN_EMAIL = 'mohit.patel1966@gmail.com'
+
 export interface UserState {
   user: User | null
   loading: boolean
   signOut: () => Promise<void>
+  isAdmin: boolean
 }
 
 export const useUser = (): UserState => {
@@ -34,5 +37,7 @@ export const useUser = (): UserState => {
     }
   }
 
-  return { user, loading, signOut }
+  const isAdmin = user?.email === ADMIN_EMAIL
+
+  return { user, loading, signOut, isAdmin }
 }

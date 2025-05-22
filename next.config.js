@@ -92,15 +92,12 @@ const withPWA = require('next-pwa')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     domains: ['www.mohitpatel.life', 'mohitpatel.life', 'res.cloudinary.com', 'firebasestorage.googleapis.com'],
   },
-  experimental: {
-    turbo: {
-      rules: {
-        // Add any custom Turbopack rules here
-      }
+  turbopack: {
+    rules: {
+      // Add any custom Turbopack rules here
     }
   }
 }
