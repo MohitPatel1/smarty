@@ -5,7 +5,7 @@
   "author": "Mohit <mohit@teziapp.com>",
   "license": "ISC",
   "scripts": {
-    "dev": "next dev --turbo ",
+    "dev": "next dev",
     "vercel": "echo 'Running as Vercel serverless'; vercel dev --listen 3004",
     "build": "next build",
     "start": "next start -p 3004",
