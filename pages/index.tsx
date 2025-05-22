@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 import { config } from 'config/config'
+import { useSite } from 'contexts/SiteContext'
 import { convertDates } from 'lib/data/firebase'
 import { showErrorNotification } from 'lib/showNotification'
 import { PageProps } from 'components/page/PageHead'
@@ -22,6 +23,7 @@ function ArticleListPage ({ articles }: ArticleListPageProps) {
   // Note: 'query' contains both /:params and ?query=value from url
   const { query } = useRouter()
   const { user, signOut } = useUser()
+  const { siteConfig } = useSite()
 
   const handleSignOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
@@ -30,9 +32,9 @@ function ArticleListPage ({ articles }: ArticleListPageProps) {
 
   return (
     <>
-      <h1>{config.appName}</h1>
+      <h1>{siteConfig.name}'s Life</h1>
 
-      <p><em>{config.appTagline}</em></p>
+      <p><em>{siteConfig.domain}</em></p>
 
       <ArticlesContextProvider
         articles={articles}
