@@ -1,9 +1,10 @@
 import React from 'react'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { ParsedUrlQuery } from 'querystring'
+import { NextPage } from 'next'
 
-import { config } from 'config/config'
 import { formatDate } from 'lib/formatDate'
+import { useSite } from 'contexts/SiteContext'
 
 interface SiteUrlProps {
   path: string
@@ -13,7 +14,7 @@ const SiteUrl = ({ path }: SiteUrlProps): string => {
   const getDate = (): string => formatDate(new Date())
   return (
     `<url>
-      <loc>${config.appUrl as string}${path.substring(1)}</loc>
+      <loc>/${path.substring(1)}</loc>
       <lastmod>${getDate()}</lastmod>
     </url>`
   )
@@ -38,7 +39,9 @@ const getPagePaths = async (): Promise<string[]> => {
 interface SitemapPageParams extends ParsedUrlQuery {
 }
 
-export async function getServerSideProps ({ res }: GetServerSidePropsContext<SitemapPageParams>): Promise<GetServerSidePropsResult<SitemapPageParams>> {
+const SitemapXml: NextPage = () => null
+
+export const getServerSideProps = async ({ res }: GetServerSidePropsContext<SitemapPageParams>): Promise<GetServerSidePropsResult<SitemapPageParams>> => {
   if (res !== undefined) {
     const pagePaths = await getPagePaths()
     res.setHeader('Content-Type', 'text/xml')
@@ -52,4 +55,4 @@ export async function getServerSideProps ({ res }: GetServerSidePropsContext<Sit
   return { props: {} }
 }
 
-export default Sitemap
+export default SitemapXml

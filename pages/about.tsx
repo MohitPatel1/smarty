@@ -3,15 +3,16 @@ import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import Image from 'next/image'
 
 import { PageProps } from 'components/page/PageHead'
-import { config } from 'config/config'
+import { useSite } from 'contexts/SiteContext'
 
 const AboutPage: React.FC<PageProps> = ({ title }) => {
+  const { siteConfig } = useSite()
   return (
     <div className='about'>
       <div className='column'>
         <Image
-          src='/mohit.png'
-          alt='Mohit Patel'
+          src={siteConfig.logo}
+          alt={siteConfig.name}
           width={150}
           height={150}
           className='avatar'
@@ -19,7 +20,7 @@ const AboutPage: React.FC<PageProps> = ({ title }) => {
         <div>
           <h1>{title}</h1>
           <p>
-            I created <strong>{config.appName}</strong> because I’m forgetting who I am. Who I was, What I did, What I am supposed to do.
+            I created <strong>{siteConfig.name}'s Life</strong> because I'm forgetting who I am. Who I was, What I did, What I am supposed to do.
             I'll come to this website for direction.
           </p>          
         </div>
@@ -62,7 +63,7 @@ export async function getStaticProps ({ params }: GetStaticPropsContext): Promis
   return {
     props: {
       title: 'About',
-      description: `I created ${config.appName} because I’ve always been passionate about building fast, modern web apps using the best technology out there.`
+      description: `I created this site because I've always been passionate about building fast, modern web apps using the best technology out there.`
     }
   }
 }
