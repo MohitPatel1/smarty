@@ -1,22 +1,33 @@
 import React from 'react'
 import Link from 'next/link'
-import { config } from 'config/config'
 import { getSiteConfig } from 'config/site'
 
 const Footer = (): React.ReactElement => {
-  // Get hostname from window or headers in SSR
   const [siteConfig, setSiteConfig] = React.useState(() => {
-    if (typeof window !== 'undefined') {
-      return getSiteConfig(window.location.hostname)
+    try {
+      if (typeof window !== 'undefined') {
+        return getSiteConfig(window.location.hostname)
+      }
+      return getSiteConfig('')
+    } catch (error) {
+      console.error('Error getting site config:', error)
+      return {
+        name: 'Site',
+        logo: '/default-logo.png',
+        email: 'contact@site.com',
+        domain: 'site.com'
+      }
     }
-    // During SSR, we'll use the default config
-    return getSiteConfig('')
   })
 
-  // Update config when component mounts in browser
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setSiteConfig(getSiteConfig(window.location.hostname))
+    try {
+      if (typeof window !== 'undefined') {
+        const newConfig = getSiteConfig(window.location.hostname)
+        setSiteConfig(newConfig)
+      }
+    } catch (error) {
+      console.error('Error updating site config:', error)
     }
   }, [])
   
@@ -66,6 +77,11 @@ const SiteLogo = ({ config }: SiteLogoProps): React.ReactElement => (
       src={config.logo}
       alt={config.name}
       title={config.name}
+      onError={(e) => {
+        // Fallback to default logo if the specified one fails to load
+        const target = e.target as HTMLImageElement
+        target.src = '/default-logo.png'
+      }}
     />
     <style jsx>{`
       a {

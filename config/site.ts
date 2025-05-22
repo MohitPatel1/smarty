@@ -5,23 +5,34 @@ interface SiteConfig {
   domain: string
 }
 
-const siteConfigs: Record<string, SiteConfig> = {
+// Default configuration for known domains
+const defaultConfigs: Record<string, Partial<SiteConfig>> = {
   'mohitpatel.life': {
     name: 'Mohit',
     logo: '/mohit.png',
-    email: 'mohit@teziapp.com',
-    domain: 'mohitpatel.life'
+    email: 'mohit@teziapp.com'
   },
   'fenil.life': {
     name: 'Fenil',
     logo: '/fenil.png',
-    email: 'fenil@teziapp.com',
-    domain: 'fenil.life'
+    email: 'fenil@teziapp.com'
   }
 }
 
 export const getSiteConfig = (hostname: string): SiteConfig => {
-  // Remove 'www.' if present
+  // Remove 'www.' if present and get the base domain
   const domain = hostname.replace('www.', '')
-  return siteConfigs[domain] || siteConfigs['fenil.life'] // fallback to fenil.life
+  
+  // Get the first part of the domain (before the first dot)
+  const name = domain.split('.')[0]
+  
+  // Use default config if available, otherwise use dynamic values
+  const defaultConfig = defaultConfigs[domain] || {}
+  
+  return {
+    name: defaultConfig.name || name.charAt(0).toUpperCase() + name.slice(1),
+    logo: defaultConfig.logo || '/default-logo.png',
+    email: defaultConfig.email || `${name}@${domain}`,
+    domain: domain
+  }
 } 
