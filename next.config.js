@@ -9,7 +9,7 @@ const withPWA = require('next-pwa')({
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['www.mohitpatel.life', 'mohitpatel.life', 'res.cloudinary.com', 'firebasestorage.googleapis.com'],
+    domains: ['www.mohitpatel.life', 'mohitpatel.life', 'fenil.life', 'www.fenil.life', 'res.cloudinary.com', 'firebasestorage.googleapis.com'],
   }
 }
 
