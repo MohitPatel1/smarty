@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp } from '@firebase/firestore'
 import { firebaseDB } from 'lib/data/firebase'
-import useUser from 'hooks/useUser'
+import { useUser } from 'hooks/useUser'
 import { uploadToCloudinary } from 'lib/data/cloudinary'
 
 interface Message {

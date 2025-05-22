@@ -14,7 +14,7 @@ import {
   Firestore
 } from '@firebase/firestore'
 import ChatWindow from '../ChatWindow'
-import useUser from 'hooks/useUser'
+import { useUser } from 'hooks/useUser'
 import showNotification from 'lib/showNotification'
 
 // Mock the hooks and modules

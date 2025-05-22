@@ -1,6 +1,6 @@
 import { initializeApp } from '@firebase/app'
 import { getFirestore, getDoc, getDocs, DocumentData, DocumentSnapshot, DocumentReference, CollectionReference, QuerySnapshot } from '@firebase/firestore'
-import '@firebase/auth'
+import { getAuth } from '@firebase/auth'
 // import '@firebase/analytics'
 
 export const firebaseConfig = {
@@ -16,6 +16,7 @@ export const firebaseConfig = {
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig)
 export const firebaseDB = getFirestore(firebaseApp)
+export const firebaseAuth = getAuth(firebaseApp)
 // if (isClientSide()) firebase.analytics()
 
 // Helpers

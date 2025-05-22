@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { getAuth, sendSignInLinkToEmail } from '@firebase/auth'
+import { useRouter } from 'next/router'
 
-import { firebaseApp } from 'lib/data/firebase'
+import { firebaseApp, firebaseAuth } from 'lib/data/firebase'
 import showNotification from 'lib/showNotification'
 import { googleEvent } from 'components/page/GoogleAnalytics'
+import { config } from 'config/config'
 // import makeRestRequest from 'lib/makeRestRequest'
 
 // const anonymizeEmail = (email: string): string => email.split('@').map((part, isDomain) => isDomain ? part : part[0] + new Array(part.length).join('•')).join('@')
@@ -27,6 +29,7 @@ const SigninWithEmailForm = ({ buttonText = 'Sign in', thankyouText = 'Check you
   const [inProgress, setInProgress] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const auth = getAuth(firebaseApp)
+  const router = useRouter()
 
   const [inputs, setInputs] = useState({ email: '' })
   const handleInputChange = ({ target }: SimpleEvent): void => setInputs({ ...inputs, [target.name]: target.value })
@@ -38,10 +41,10 @@ const SigninWithEmailForm = ({ buttonText = 'Sign in', thankyouText = 'Check you
     try {
       // Firebase sign-in with just email link, no password
       const actionCodeSettings = {
-        url: `${window.location.origin}/signin/authenticate${redirectTo !== undefined ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
+        url: `${config.appUrl}signin/authenticate?email=${inputs.email}${redirectTo !== undefined ? `&redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
         handleCodeInApp: true
       }
-      await sendSignInLinkToEmail(auth, inputs.email, actionCodeSettings)
+      await sendSignInLinkToEmail(firebaseAuth, inputs.email, actionCodeSettings)
       window.localStorage.setItem('emailForSignIn', inputs.email)
       // makeRestRequest('POST', '/api/notifications', { email: anonymizeEmail(inputs.email) })
       handleInputChange({ target: { name: 'email', value: '' } })
@@ -49,7 +52,7 @@ const SigninWithEmailForm = ({ buttonText = 'Sign in', thankyouText = 'Check you
       if (googleEventName) googleEvent(googleEventName)
       onCompleted?.(null, inputs)
     } catch (error: any) {
-      console.warn(error.message as string)
+      console.warn('Error sending email link:', error.message as string)
       showNotification(`Could not sign in: ${error.message}`, 'error')
       onCompleted?.(null, inputs)
     } finally {

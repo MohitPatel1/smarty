@@ -4,6 +4,7 @@ import Router from 'next/router'
 import Link from 'next/link'
 import { ErrorBoundary } from '../components/common/ErrorBoundary'
 import OfflineIndicator from '../components/common/OfflineIndicator'
+import { config } from '../config/config'
 
 import PageHead from 'components/page/PageHead'
 // import Header from 'components/page/Header'
@@ -21,8 +22,11 @@ export default function App ({ Component, pageProps, router }: AppProps): React.
   // props (Server + Client): Component, err, pageProps, router     
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      const swPath = '/sw.js'
+      const swScope = '/'
+      
       navigator.serviceWorker
-        .register('/sw.js')
+        .register(swPath, { scope: swScope })
         .then((registration) => {
           console.log('Service Worker registration successful', registration);
           
@@ -45,7 +49,8 @@ export default function App ({ Component, pageProps, router }: AppProps): React.
           });
         })
         .catch((err) => {
-          console.warn('Service Worker registration failed', err);
+          console.warn('Service Worker registration failed:', err);
+          // Don't show error to user, just log it
         });
     }
   }, []);

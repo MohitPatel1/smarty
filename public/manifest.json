@@ -1,6 +1,6 @@
 {
-  "name": "Mohit's Life",
-  "short_name": "Mohit",
+  "name": "Life",
+  "short_name": "Life",
   "description": "Life is not a partical to seek, but a wave to ride",
   "icons": [
     {
@@ -81,6 +81,7 @@
     }
   ],
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#007bff",

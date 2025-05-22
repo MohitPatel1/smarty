@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { collection, query, orderBy, onSnapshot, addDoc, serverTimestamp, DocumentData, QuerySnapshot } from '@firebase/firestore'
 import { firebaseDB } from 'lib/data/firebase'
-import useUser from 'hooks/useUser'
+import { useUser } from 'hooks/useUser'
 import showNotification from 'lib/showNotification'
 
 interface Message {

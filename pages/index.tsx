@@ -8,7 +8,7 @@ import { convertDates } from 'lib/data/firebase'
 import { showErrorNotification } from 'lib/showNotification'
 import { PageProps } from 'components/page/PageHead'
 import { Article, articlesCollection, ArticlesContextProvider } from 'hooks/useArticles'
-import useUser from 'hooks/useUser'
+import { useUser } from 'hooks/useUser'
 import ChatWindow from 'components/chat/ChatWindow'
 
 import ArticleList from 'components/articles/ArticleList'
