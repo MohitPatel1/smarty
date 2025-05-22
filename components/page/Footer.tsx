@@ -1,21 +1,34 @@
 import React from 'react'
 import Link from 'next/link'
-
 import { config } from 'config/config'
+import { getSiteConfig } from 'config/site'
 
 const Footer = (): React.ReactElement => {
-  const currentDomain = typeof window !== 'undefined' ? window.location.hostname : 'fenil.life'
-  const siteName = currentDomain.includes('mohitpatel') ? 'Mohit' : 'Fenil'
+  // Get hostname from window or headers in SSR
+  const [siteConfig, setSiteConfig] = React.useState(() => {
+    if (typeof window !== 'undefined') {
+      return getSiteConfig(window.location.hostname)
+    }
+    // During SSR, we'll use the default config
+    return getSiteConfig('')
+  })
+
+  // Update config when component mounts in browser
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setSiteConfig(getSiteConfig(window.location.hostname))
+    }
+  }, [])
   
   return (
     <footer>
       <span>
-        <Link href='/about'>About {config.appName}</Link>
+        <Link href='/about'>About {siteConfig.name}</Link>
         {' | '}
-        By <a href={`https://${currentDomain}`} target='_blank' rel='noopener noreferrer'>{siteName}</a>
-        <MohitLogo />
+        By <a href={`https://${siteConfig.domain}`} target='_blank' rel='noopener noreferrer'>{siteConfig.name}</a>
+        <SiteLogo config={siteConfig} />
         {' | '}
-        <a href={`mailto:mohit@teziapp.com`} target='_blank' rel='noopener noreferrer'>Contact</a>
+        <a href={`mailto:${siteConfig.email}`} target='_blank' rel='noopener noreferrer'>Contact</a>
       </span>
       <style jsx>{`
         :global(main) {
@@ -38,14 +51,21 @@ const Footer = (): React.ReactElement => {
     </footer>
   )
 }
-export default Footer
 
-const MohitLogo = (): React.ReactElement => (
-  <a href='https://www.mohitpatel.life' target='_blank' rel='noopener noreferrer' className='no-link'>
+interface SiteLogoProps {
+  config: {
+    name: string
+    logo: string
+    domain: string
+  }
+}
+
+const SiteLogo = ({ config }: SiteLogoProps): React.ReactElement => (
+  <a href={`https://${config.domain}`} target='_blank' rel='noopener noreferrer' className='no-link'>
     <img
-      src='/mohit.png'
-      alt='Mohit'
-      title='Mohit'
+      src={config.logo}
+      alt={config.name}
+      title={config.name}
     />
     <style jsx>{`
       a {
@@ -61,3 +81,5 @@ const MohitLogo = (): React.ReactElement => (
     </style>
   </a>
 )
+
+export default Footer
